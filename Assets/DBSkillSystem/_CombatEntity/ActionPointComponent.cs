@@ -86,7 +86,7 @@ namespace DBSkillSystem
             var str = "";
             foreach (var pair in actionPointListeners)
             {
-                str+= (first ? $"{pair.Key}_{pair.Value.Count}" : $"\n{pair.Key}_{pair.Value.Count}");
+                str+= (first ? $"{pair.Key} | {pair.Value.Count}" : $"\n{pair.Key} | {pair.Value.Count}");
                 first = false;
             }
 

@@ -2,7 +2,7 @@
 
 namespace DBSkillSystem
 {
-    public abstract class BaseBuff
+    public class BaseBuff
     {
         // 创建者
         public CombatEntity Creator { get; set; }
@@ -18,14 +18,16 @@ namespace DBSkillSystem
 
 
         // Buff持续时间，毫秒
-        public virtual int Duration { get; } = 0;
+        public virtual int Duration { get; set; } = 0;
         // 间隔时间，毫秒
-        public virtual int Interval { get; } = 0;
+        public virtual int Interval { get; set; } = 0;
         // BuffId
         public virtual int BuffId { get; } = 0;
         // 可否叠加
         public virtual bool CanStack { get; } = false;
 
+        public GameTimer BuffTimer { get; private set; } = new GameTimer();
+        
         
         /// <summary>
         /// 创建时

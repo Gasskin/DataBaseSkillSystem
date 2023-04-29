@@ -4,8 +4,6 @@ namespace DBSkillSystem
 {
     public class AddBuffAction : Entity
     {
-        private AddBuffActionExecution actionExecution;
-        
         public AddBuffActionExecution MakeAction()
         {
             return new AddBuffActionExecution
@@ -27,6 +25,9 @@ namespace DBSkillSystem
                 return;
             if (Target == null) 
                 return;
+
+            Buff.Creator = Creator;
+            Buff.Owner = Target;
             
             Creator?.ActionPointComponent?.TriggerActionPoint(ActionPoint.BEFORE_ADD_BUFF, this);
             Target?.ActionPointComponent?.TriggerActionPoint(ActionPoint.BEFORE_GET_BUFF, this);

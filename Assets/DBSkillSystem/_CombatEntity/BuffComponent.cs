@@ -10,9 +10,9 @@ namespace DBSkillSystem
 
         public override void Update()
         {
-            foreach (var baseBuff in buffDic)
+            foreach (var buff in buffDic.Values)
             {
-                
+                buff.BuffTimer.Update();
             }
         }
 
