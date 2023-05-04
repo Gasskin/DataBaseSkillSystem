@@ -43,12 +43,37 @@ namespace DBSkillSystem
 
         public float Value { get; set; }
 
+        public bool Continue { get; set; } = true;
+        
         public void ApplyPropertyModifier()
         {
+            if (Target == null) 
+                return;
+            
+            Target?.ActionPointComponent?.TriggerActionPoint(ActionPoint.BEFORE_PROPERTY_MODIFIER, this);
+
+            if (!Continue)
+                return;
+            
+            if (PropertyModifier.HasFlag(PropertyModifier.HP))
+                Target.AttributeComponent.Hp += Value;
+            
+            if (PropertyModifier.HasFlag(PropertyModifier.MAX_HP))
+                Target.AttributeComponent.MaxHp += Value;
+            
+            if (PropertyModifier.HasFlag(PropertyModifier.MP))
+                Target.AttributeComponent.Mp += Value;
+            
+            if (PropertyModifier.HasFlag(PropertyModifier.MAX_MP))
+                Target.AttributeComponent.MaxMp += Value;
+            
+            if (PropertyModifier.HasFlag(PropertyModifier.ATTACK))
+                Target.AttributeComponent.Attack += Value;
+            
             if (PropertyModifier.HasFlag(PropertyModifier.SPEED))
-            {
                 Target.AttributeComponent.MoveSpeed += Value;
-            }
+            
+            Target?.ActionPointComponent?.TriggerActionPoint(ActionPoint.AFTER_PROPERTY_MODIFIER, this);
         }
     }
 

@@ -29,6 +29,12 @@ namespace DBSkillSystem
         BEFORE_RECEIVE_ATTACK = 1 << 8,
         // 受到攻击后
         AFTER_RECEIVE_ATTACK = 1 << 9,
+        
+        // 属性修改前
+        BEFORE_PROPERTY_MODIFIER = 1 << 10,
+        
+        // 属性修改后
+        AFTER_PROPERTY_MODIFIER = 1 << 11,
     }
     
     [DrawProperty]

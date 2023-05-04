@@ -5,9 +5,9 @@ namespace DBSkillSystem
     public abstract class BaseAbility : Entity
     {
         // 释放者
-        public Entity Creator { get; set; }
+        public CombatEntity Creator { get; set; }
         // 释放目标
-        public Entity Target { get; set; }
+        public CombatEntity Target { get; set; }
         
         // 前摇，毫秒
         public virtual int WaitBeforeSpell { get; } = 0;
