@@ -26,14 +26,15 @@ namespace DBSkillSystem
         // 可否叠加
         public virtual bool CanStack { get; } = false;
 
-        public GameTimer BuffTimer { get; private set; } = new GameTimer();
-        
-        
+        public GameTimer BuffTimer { get; private set; }
+
+
         /// <summary>
         /// 创建时
         /// </summary>
         public virtual void OnBuffCreate()
         {
+            BuffTimer = new GameTimer(Duration);
             BuffLayer = 1;
             Owner?.ActionPointComponent?.AddActionPointListener(ActionPoint.BEFORE_ATTACK, OnBeforeAttack);
             Owner?.ActionPointComponent?.AddActionPointListener(ActionPoint.AFTER_ATTACK, OnAfterAttack);
@@ -46,7 +47,7 @@ namespace DBSkillSystem
         /// </summary>
         public virtual void OnBuffRefresh()
         {
-            
+            BuffLayer += 1;
         }
         
         /// <summary>
@@ -54,7 +55,7 @@ namespace DBSkillSystem
         /// </summary>
         public virtual void OnReset()
         {
-            
+            BuffTimer?.Reset();
         }
         
         /// <summary>

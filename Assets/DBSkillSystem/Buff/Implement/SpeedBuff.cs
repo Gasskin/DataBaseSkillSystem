@@ -1,8 +1,12 @@
-﻿namespace DBSkillSystem.Implement
+﻿using EComponent;
+
+namespace DBSkillSystem.Implement
 {
+    [DrawProperty]
     public class SpeedBuff : BaseBuff
     {
         public override int BuffId => 1;
+        public override bool CanStack => true;
         
         public float value = 20;
         
@@ -21,7 +25,7 @@
 #if UNITY_EDITOR
         public override string ToString()
         {
-            return $"移动速度 {value}";
+            return $"移动速度 {value}_{BuffLayer}";
         }
 #endif
     }

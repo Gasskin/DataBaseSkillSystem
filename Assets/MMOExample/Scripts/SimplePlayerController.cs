@@ -12,6 +12,10 @@ public class SimplePlayerController : MonoBehaviour
     {
         Hero = MasterEntity.Instance.AddChild<CombatEntity>();
         Hero.GameObject = gameObject;
+        
+        var action = Hero.AddBuffAction.MakeAction();
+        action.Buff = new DamageBuff();
+        action.AddBuff();
     }
 
     private void Update()
@@ -20,7 +24,11 @@ public class SimplePlayerController : MonoBehaviour
         {
             var action = Hero.AddBuffAction.MakeAction();
             action.Target = Hero;
-            action.Buff = new SpeedBuff() { value = 50 };
+            action.Buff = new SpeedBuff
+            {
+                value = 50,
+                Duration = 6000,
+            };
             action.AddBuff();
         }
     }

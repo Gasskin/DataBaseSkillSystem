@@ -8,11 +8,38 @@ namespace DBSkillSystem
     {
         private readonly Dictionary<int, BaseBuff> buffDic = new();
 
+        private readonly List<int> removeList = new();
+
         public override void Update()
         {
             foreach (var buff in buffDic.Values)
             {
                 buff.BuffTimer.Update();
+            }
+
+            removeList.Clear();
+
+            foreach (var buff in buffDic.Values)
+            {
+                if (buff.BuffTimer.IsFinish)
+                {
+                    buff.BuffLayer--;
+
+                    if (buff.BuffLayer > 0) 
+                        buff.BuffTimer.Reset();
+                    else
+                        removeList.Add(buff.BuffId);
+                }
+            }
+
+            foreach (var buffId in removeList)
+            {
+                if (buffDic.TryGetValue(buffId,out var buff))
+                {
+                    buff.OnBuffRemove();
+                    buffDic.Remove(buffId);
+                    buff.OnBuffDestroy();
+                }
             }
         }
 
