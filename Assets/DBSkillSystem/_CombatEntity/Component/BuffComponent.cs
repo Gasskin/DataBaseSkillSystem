@@ -14,14 +14,14 @@ namespace DBSkillSystem
         {
             foreach (var buff in buffDic.Values)
             {
-                buff.BuffTimer.Update();
+                buff.BuffTimer?.Update();
             }
 
             removeList.Clear();
 
             foreach (var buff in buffDic.Values)
             {
-                if (buff.BuffTimer.IsFinish)
+                if (buff.BuffTimer is { IsFinish: true })
                 {
                     buff.BuffLayer--;
 

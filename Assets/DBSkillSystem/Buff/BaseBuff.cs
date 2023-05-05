@@ -34,7 +34,8 @@ namespace DBSkillSystem
         /// </summary>
         public virtual void OnBuffCreate()
         {
-            BuffTimer = new GameTimer(Duration);
+            if (Duration != 0) 
+                BuffTimer = new GameTimer(Duration);
             BuffLayer = 1;
             Owner?.ActionPointComponent?.AddActionPointListener(ActionPoint.BEFORE_ATTACK, OnBeforeAttack);
             Owner?.ActionPointComponent?.AddActionPointListener(ActionPoint.AFTER_ATTACK, OnAfterAttack);

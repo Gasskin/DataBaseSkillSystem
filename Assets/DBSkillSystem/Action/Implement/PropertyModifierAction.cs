@@ -47,33 +47,33 @@ namespace DBSkillSystem
         
         public void ApplyPropertyModifier()
         {
-            if (Target == null) 
+            if (Targets == null) 
                 return;
             
-            Target?.ActionPointComponent?.TriggerActionPoint(ActionPoint.BEFORE_PROPERTY_MODIFIER, this);
+            Targets?.ActionPointComponent?.TriggerActionPoint(ActionPoint.BEFORE_PROPERTY_MODIFIER, this);
 
             if (!Continue)
                 return;
             
             if (PropertyModifier.HasFlag(PropertyModifier.HP))
-                Target.AttributeComponent.Hp += Value;
+                Targets.AttributeComponent.Hp += Value;
             
             if (PropertyModifier.HasFlag(PropertyModifier.MAX_HP))
-                Target.AttributeComponent.MaxHp += Value;
+                Targets.AttributeComponent.MaxHp += Value;
             
             if (PropertyModifier.HasFlag(PropertyModifier.MP))
-                Target.AttributeComponent.Mp += Value;
+                Targets.AttributeComponent.Mp += Value;
             
             if (PropertyModifier.HasFlag(PropertyModifier.MAX_MP))
-                Target.AttributeComponent.MaxMp += Value;
+                Targets.AttributeComponent.MaxMp += Value;
             
             if (PropertyModifier.HasFlag(PropertyModifier.ATTACK))
-                Target.AttributeComponent.Attack += Value;
+                Targets.AttributeComponent.Attack += Value;
             
             if (PropertyModifier.HasFlag(PropertyModifier.SPEED))
-                Target.AttributeComponent.MoveSpeed += Value;
+                Targets.AttributeComponent.MoveSpeed += Value;
             
-            Target?.ActionPointComponent?.TriggerActionPoint(ActionPoint.AFTER_PROPERTY_MODIFIER, this);
+            Targets?.ActionPointComponent?.TriggerActionPoint(ActionPoint.AFTER_PROPERTY_MODIFIER, this);
         }
     }
 
@@ -84,7 +84,7 @@ namespace DBSkillSystem
             var action = baseBuff.Owner?.PropertyModifierAction.MakeAction();
             if (action == null)
                 return;
-            action.Target = baseBuff.Owner;
+            action.Targets = baseBuff.Owner;
             action.PropertyModifier = modifier;
             action.Value = value;
             action.ApplyPropertyModifier();

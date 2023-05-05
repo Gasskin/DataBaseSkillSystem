@@ -17,7 +17,7 @@ public class Test : MonoBehaviour
         monster = MasterEntity.Instance.AddChild<CombatEntity>();
         
         var action = hero.AddBuffAction.MakeAction();
-        action.Target = monster;
+        action.Targets = monster;
         action.Buff = new DamageBuff();
         action.AddBuff();
         

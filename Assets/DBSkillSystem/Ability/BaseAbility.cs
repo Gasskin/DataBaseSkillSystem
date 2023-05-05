@@ -9,6 +9,8 @@ namespace DBSkillSystem
         // 释放目标
         public CombatEntity Target { get; set; }
         
+        public abstract AbilityType AbilityType { get; }
+        
         // 前摇，毫秒
         public virtual int WaitBeforeSpell { get; } = 0;
         // 后摇，毫秒
@@ -20,12 +22,22 @@ namespace DBSkillSystem
             
             Creator?.ActionPointComponent.AddActionPointListener(ActionPoint.ABILITY_OWNER_DIE, OnOwnerDied);
             Creator?.ActionPointComponent.AddActionPointListener(ActionPoint.ABILITY_OWNER_SPAWN, OnOwnerSpawned);
+
+            if (AbilityType.HasFlag(AbilityType.PassiveAbility))
+            {
+                OnAbilityAdd();
+            }
         }
         
         public override void OnDestroy()
         {
             Creator?.ActionPointComponent.RemoveActionPointListener(ActionPoint.ABILITY_OWNER_DIE, OnOwnerDied);
             Creator?.ActionPointComponent.RemoveActionPointListener(ActionPoint.ABILITY_OWNER_SPAWN, OnOwnerSpawned);
+                
+            if (AbilityType.HasFlag(AbilityType.PassiveAbility))
+            {
+                OnAbilityRemove();
+            }
         }
         
         /// <summary>
@@ -43,8 +55,23 @@ namespace DBSkillSystem
         {
             
         }
-  
 
+        /// <summary>
+        /// 被动技能初始化时
+        /// </summary>
+        public virtual void OnAbilityAdd()
+        {
+            
+        }
+
+        /// <summary>
+        /// 被动技能移除时
+        /// </summary>
+        public virtual void OnAbilityRemove()
+        {
+            
+        }
+        
         /// <summary>
         /// 持续施法结束
         /// </summary>

@@ -1,4 +1,3 @@
-using System;
 using DBSkillSystem;
 using DBSkillSystem.Implement;
 using EComponent;
@@ -12,10 +11,7 @@ public class SimplePlayerController : MonoBehaviour
     {
         Hero = MasterEntity.Instance.AddChild<CombatEntity>();
         Hero.GameObject = gameObject;
-        
-        var action = Hero.AddBuffAction.MakeAction();
-        action.Buff = new DamageBuff();
-        action.AddBuff();
+        Hero.AddAbility<DamageRingAbility>();
     }
 
     private void Update()
@@ -23,11 +19,11 @@ public class SimplePlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             var action = Hero.AddBuffAction.MakeAction();
-            action.Target = Hero;
+            action.Targets = Hero;
             action.Buff = new SpeedBuff
             {
                 value = 50,
-                Duration = 6000,
+                Duration = 0,
             };
             action.AddBuff();
         }
