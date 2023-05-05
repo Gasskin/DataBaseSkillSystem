@@ -32,9 +32,13 @@ namespace DBSkillSystem
         
         // 属性修改前
         BEFORE_PROPERTY_MODIFIER = 1 << 10,
-        
         // 属性修改后
         AFTER_PROPERTY_MODIFIER = 1 << 11,
+        
+        // 技能持有者死亡
+        ABILITY_OWNER_DIE = 1 << 12,
+        // 技能持有者出生
+        ABILITY_OWNER_SPAWN = 1 << 13,
     }
     
     [DrawProperty]

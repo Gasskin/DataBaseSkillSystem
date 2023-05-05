@@ -13,7 +13,38 @@ namespace DBSkillSystem
         public virtual int WaitBeforeSpell { get; } = 0;
         // 后摇，毫秒
         public virtual int WaitAfterSpell { get; } = 0;
+
+        public override void Awake()
+        {
+            Creator = Parent.As<CombatEntity>();
+            
+            Creator?.ActionPointComponent.AddActionPointListener(ActionPoint.ABILITY_OWNER_DIE, OnOwnerDied);
+            Creator?.ActionPointComponent.AddActionPointListener(ActionPoint.ABILITY_OWNER_SPAWN, OnOwnerSpawned);
+        }
         
+        public override void OnDestroy()
+        {
+            Creator?.ActionPointComponent.RemoveActionPointListener(ActionPoint.ABILITY_OWNER_DIE, OnOwnerDied);
+            Creator?.ActionPointComponent.RemoveActionPointListener(ActionPoint.ABILITY_OWNER_SPAWN, OnOwnerSpawned);
+        }
+        
+        /// <summary>
+        /// 持有者死亡
+        /// </summary>
+        public virtual void OnOwnerDied(BaseActionExecution actionExecution)
+        {
+            
+        }
+        
+        /// <summary>
+        /// 持有者出生
+        /// </summary>
+        public virtual void OnOwnerSpawned(BaseActionExecution actionExecution)
+        {
+            
+        }
+  
+
         /// <summary>
         /// 持续施法结束
         /// </summary>
@@ -37,22 +68,7 @@ namespace DBSkillSystem
         {
             
         }
-
-        /// <summary>
-        /// 持有者死亡
-        /// </summary>
-        public virtual void OnOwnerDied()
-        {
-            
-        }
         
-        /// <summary>
-        /// 持有者出生
-        /// </summary>
-        public virtual void OnOwnerSpawned()
-        {
-            
-        }
        
         /// <summary>
         /// 子弹命中
